@@ -50,7 +50,7 @@ class AES:
             key = self.validate_key()
             # Decode từ Base64
             iv_and_ct = base64.b64decode(ciphertext)
-            
+
             # Tách IV (16 bytes đầu) và Ciphertext
             iv = iv_and_ct[:16]
             ct = iv_and_ct[16:]
@@ -61,3 +61,34 @@ class AES:
             return pt_bytes.decode('utf-8')
         except Exception:
             return "Giải mã thất bại: Khóa sai hoặc dữ liệu hỏng."
+
+# =============================================================================
+# HƯỚNG DẪN TÍCH HỢP CHO MAIN MENU (KHOA)
+# =============================================================================
+# 1. Import class:
+#    from aes import AES
+#
+# 2. Tạo khóa ngẫu nhiên (khi người dùng nhấn nút "Generate Random Key"):
+#    random_key = AES.generate_random_key(16) # Trả về chuỗi Hex 16 ký tự
+#
+# 3. Thực hiện Mã hóa (Encryption):
+#    try:
+#        key_input = "chuoi_khoa_nguoi_dung_nhap"
+#        plaintext = "noi_dung_can_ma_hoa"
+#        
+#        tool = AES(key_input)
+#        ciphertext = tool.encrypt(plaintext)
+#        # ciphertext sẽ là chuỗi Base64 hoặc thông báo lỗi bắt đầu bằng "Error:"
+#    except Exception as e:
+#        # Hiển thị thông báo lỗi lên giao diện (ví dụ: sai độ dài khóa)
+#        print(f"Lỗi: {e}")
+#
+# 4. Thực hiện Giải mã (Decryption):
+#    tool = AES(key_input)
+#    original_text = tool.decrypt(ciphertext_input)
+#    # Trả về Plaintext gốc hoặc thông báo "Giải mã thất bại..."
+#
+# LƯU Ý: 
+# - Module đã tự động xử lý Padding (PKCS7) và IV (CBC Mode).
+# - Luôn để trong khối try-except để bắt lỗi Validate Key Size.
+# =============================================================================
