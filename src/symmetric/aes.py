@@ -29,8 +29,21 @@ class AES:
     
     def encrypt(self, plaintext):
         """Encrypt plaintext using AES"""
-        # TODO: Implement AES encryption
-        pass
+        """Mã hóa Plaintext sang Ciphertext (CBC mode)"""
+        try:
+            key = self.validate_key()
+            # Khởi tạo Cipher với Mode CBC 
+            cipher = CryptoAES.new(key, CryptoAES.MODE_CBC)
+            
+            # Padding dữ liệu theo chuẩn PKCS7 để khớp block size
+            padded_data = pad(plaintext.encode('utf-8'), self.block_size)
+            ct_bytes = cipher.encrypt(padded_data)
+            
+            # Gộp IV và Ciphertext sau đó mã hóa Base64 để hiển thị
+            iv_and_ct = cipher.iv + ct_bytes
+            return base64.b64encode(iv_and_ct).decode('utf-8')
+        except Exception as e:
+            return f"Error: {str(e)}"
     
     def decrypt(self, ciphertext):
         """Decrypt ciphertext using AES"""
