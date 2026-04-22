@@ -47,5 +47,18 @@ class AES:
     
     def decrypt(self, ciphertext):
         """Decrypt ciphertext using AES"""
-        # TODO: Implement AES decryption
-        pass
+        """Giải mã Ciphertext về Plaintext ban đầu [cite: 19, 26]"""
+        try:
+            key = self.validate_key()
+            iv_and_ct = base64.b64decode(ciphertext_b64)
+            
+            # Tách IV (16 bytes đầu) và Ciphertext
+            iv = iv_and_ct[:16]
+            ct = iv_and_ct[16:]
+            
+            cipher = CryptoAES.new(key, CryptoAES.MODE_CBC, iv)
+            # Giải mã và bóc padding (Unpad)
+            pt_bytes = unpad(cipher.decrypt(ct), self.block_size)
+            return pt_bytes.decode('utf-8')
+        except Exception:
+            return "Giải mã thất bại: Khóa sai hoặc dữ liệu hỏng."
