@@ -12,11 +12,11 @@ class AES:
     def __init__(self, key):
         """Initialize AES with a key"""
         self.key = key
-        self.block_size = 16
+        self.block_size = 16 # AES block size is 128 bits
 
     def validate_key(self):
         """Kiểm tra độ dài khóa (16, 24, 32 bytes) """
-        key_bytes = self.key_text.encode('utf-8')
+        key_bytes = self.key.encode('utf-8')
         if len(key_bytes) not in [16, 24, 32]:
             raise ValueError("Kích thước khóa không hợp lệ (Phải là 16, 24 hoặc 32 ký tự).")
         return key_bytes
@@ -28,7 +28,6 @@ class AES:
         return os.urandom(size).hex()[:size]
     
     def encrypt(self, plaintext):
-        """Encrypt plaintext using AES"""
         """Mã hóa Plaintext sang Ciphertext (CBC mode)"""
         try:
             key = self.validate_key()
@@ -46,11 +45,11 @@ class AES:
             return f"Error: {str(e)}"
     
     def decrypt(self, ciphertext):
-        """Decrypt ciphertext using AES"""
         """Giải mã Ciphertext về Plaintext ban đầu [cite: 19, 26]"""
         try:
             key = self.validate_key()
-            iv_and_ct = base64.b64decode(ciphertext_b64)
+            # Decode từ Base64
+            iv_and_ct = base64.b64decode(ciphertext)
             
             # Tách IV (16 bytes đầu) và Ciphertext
             iv = iv_and_ct[:16]
