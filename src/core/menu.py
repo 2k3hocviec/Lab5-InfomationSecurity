@@ -5,6 +5,7 @@ Menu system for the cryptography toolkit
 from core.input_handler import InputHandler
 from core.output_formatter import OutputFormatter
 from symmetric.aes import AES
+from hash.hash_tool import md5_hash, sha256_hash
 
 class Menu:
     """Main menu handler"""
@@ -23,9 +24,10 @@ class Menu:
             print("2. DES")
             print("3. TRIPLEDES")
             print("4. HASH")
+            print("5. RSA")
             print("0. Thoát (Exit)")
             
-            choice = self.input_handler.get_valid_choice(["0", "1", "2", "3", "4"], "\nVui lòng chọn (0-3): ")
+            choice = self.input_handler.get_valid_choice(["0", "1", "2", "3", "4", "5"], "\nVui lòng chọn (0-3): ")
             
             if choice == "0":
                 self.output_formatter.display_success("Cảm ơn đã sử dụng Cryptography Toolkit!")
@@ -37,6 +39,8 @@ class Menu:
             elif choice == "3":
                 print("đang phát triển")
             elif choice == "4":
+                self.displayHash()
+            elif choice == "5":
                 print("đang phát triển")
                 
     def displayAES(self):
@@ -128,3 +132,55 @@ class Menu:
         
         random_key = AES.generate_random_key(size)
         self.output_formatter.display_result(random_key, "🔑 Khóa ngẫu nhiên được tạo:")
+    
+    def displayHash(self):
+        """Display the hash menu"""
+        while True:
+            self.output_formatter.display_header("🔐 Hash")
+            print("Chọn thuật toán:")
+            print("1. MD5")
+            print("2. SHA-256")
+            print("0. Thoát (Exit)")
+            
+            choice = self.input_handler.get_valid_choice(["0", "1", "2"], "\nVui lòng chọn (0-2): ")
+            
+            if choice == "0":
+                break
+            elif choice == "1":
+                self.hash_md5()
+            elif choice == "2":
+                self.hash_sha256()
+    
+    def hash_md5(self):
+        """MD5 hash menu"""
+        self.output_formatter.display_header("🔐 Hash MD5")
+        
+        try:
+            text = self.input_handler.get_user_input("Nhập văn bản cần hash: ").strip()
+            
+            if not text:
+                self.output_formatter.display_error("Văn bản không được để trống!")
+                return
+            
+            result = md5_hash(text)
+            self.output_formatter.display_result(result, "📝 Hash MD5:")
+        
+        except Exception as e:
+            self.output_formatter.display_error(str(e))
+    
+    def hash_sha256(self):
+        """SHA-256 hash menu"""
+        self.output_formatter.display_header("🔐 Hash SHA-256")
+        
+        try:
+            text = self.input_handler.get_user_input("Nhập văn bản cần hash: ").strip()
+            
+            if not text:
+                self.output_formatter.display_error("Văn bản không được để trống!")
+                return
+            
+            result = sha256_hash(text)
+            self.output_formatter.display_result(result, "📝 Hash SHA-256:")
+        
+        except Exception as e:
+            self.output_formatter.display_error(str(e))
