@@ -5,7 +5,7 @@ from Crypto.Cipher import PKCS1_OAEP
 import binascii
 
 
-class RSA:
+class RSAModule:
     """Handle RSA asymmetric encryption"""
     
     @staticmethod
@@ -222,7 +222,7 @@ def demo_error_handling():
         print(f"   ✓ Caught error: {e}")
 
 
-if __name__ == "__main__":
+def run_all_demos():
     # Run all demos
     demo_rsa_basic()
     demo_rsa_reverse()

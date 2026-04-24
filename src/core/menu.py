@@ -6,6 +6,8 @@ from core.input_handler import InputHandler
 from core.output_formatter import OutputFormatter
 from symmetric.aes import AES
 from hash.hash_tool import md5_hash, sha256_hash
+from symmetric.des import all_demo_des, all_demo_3des
+from asymmetric.rsa_tool import demo_rsa_basic, run_all_demos
 
 class Menu:
     """Main menu handler"""
@@ -35,13 +37,13 @@ class Menu:
             elif choice == "1":
                 self.displayAES()
             elif choice == "2":
-                print("đang phát triển")
+                all_demo_des()
             elif choice == "3":
-                print("đang phát triển")
+                all_demo_3des()
             elif choice == "4":
                 self.displayHash()
             elif choice == "5":
-                print("đang phát triển")
+                 run_all_demos()
                 
     def displayAES(self):
         """Display the main menu"""
