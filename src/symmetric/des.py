@@ -6,7 +6,7 @@ from Crypto.Util.Padding import pad, unpad
 import binascii
 
 
-class DES:
+class DESModule:
     """Handle DES encryption and decryption"""
     
     @staticmethod
@@ -186,6 +186,44 @@ def demo_3des():
     print(f"Decrypted: {decrypted}")
     print(f"Success: {plaintext == decrypted}\n")
 
+
+def all_demo_des():
+    demo_des()
+    
+    # Test with manual key
+    print("=" * 60)
+    print("MANUAL KEY TEST")
+    print("=" * 60)
+    manual_key_hex = "0123456789abcdef"  # 8 bytes = 16 hex chars
+    try:
+        key = DESModule.validate_key(manual_key_hex)
+        plaintext = "Test message"
+        ciphertext = DESModule.encrypt(plaintext, key)
+        print(f"Manual Key: {manual_key_hex}")
+        print(f"Plaintext: {plaintext}")
+        print(f"Ciphertext: {ciphertext}")
+        print(f"Decrypted: {DESModule.decrypt(ciphertext, key)}")
+    except ValueError as e:
+        print(f"Error: {e}")
+
+def all_demo_3des():
+    demo_3des()
+    
+    # Test with manual key
+    print("=" * 60)
+    print("MANUAL KEY TEST")
+    print("=" * 60)
+    manual_key_hex = "0123456789abcdef"  # 8 bytes = 16 hex chars
+    try:
+        key = DESModule.validate_key(manual_key_hex)
+        plaintext = "Test message"
+        ciphertext = DESModule.encrypt(plaintext, key)
+        print(f"Manual Key: {manual_key_hex}")
+        print(f"Plaintext: {plaintext}")
+        print(f"Ciphertext: {ciphertext}")
+        print(f"Decrypted: {DESModule.decrypt(ciphertext, key)}")
+    except ValueError as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     # Run demos
