@@ -232,3 +232,6 @@ def run_all_demos():
     print("\n" + "=" * 60)
     print("ALL DEMOS COMPLETED SUCCESSFULLY!")
     print("=" * 60)
+
+if __name__ == "__main__":
+    run_all_demos()

@@ -34,3 +34,15 @@ class InputHandler:
                 lines.append(line)
                 empty_count = 0
         return "\n".join(lines)
+    
+    def get_multiline_input_rsa(self, prompt):
+        """Get multiline input from the user"""
+        print(prompt + " (Nhấn Ctrl+Z và Enter trên Windows hoặc Ctrl+D trên Linux/macOS để kết thúc)")
+        lines = []
+        while True:
+            try:
+                line = input()
+                lines.append(line)
+            except EOFError:
+                break
+        return "\n".join(lines)
